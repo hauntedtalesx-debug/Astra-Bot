@@ -14,10 +14,11 @@ export default {
       .setTitle('🌟 Ajuda - Astra Bot')
       .setDescription('Eu sou a Astra, sua assistente de comunidade com IA! Aqui estão meus principais comandos:')
       .addFields(
-        { name: '🔧 Configuração (Admins)', value: '`/setup` - Configuração inicial\n`/dados servidor` - Visualiza os dados armazenados\n`/dados apagar` - Apaga os dados do servidor' },
-        { name: '📊 Engajamento', value: '`/ranking` - Mostra a atividade da comunidade\n`/astra-post` - Gerencia os posts automáticos' },
-        { name: '❓ Utilidades', value: '`/faq adicionar` - Adiciona uma pergunta frequente\n`/faq perguntar` - Busca uma resposta no FAQ' },
-        { name: '⭐ Premium', value: '`/plano` - Detalhes do plano atual' }
+        { name: '🔧 Configuração', value: '`/setup`, `/dados servidor`, `/dados apagar`\n`/ranking configurar`, `/relatorio semanal`' },
+        { name: '📊 Engajamento & Ranking', value: '`/ranking geral`, `/ranking semanal`, `/ranking mensal`\n`/relatorio gerar`' },
+        { name: '🤖 Posts Automáticos', value: '`/astra-post configurar`, `/astra-post status`, `/astra-post testar`\n`/astra-post pausar`, `/astra-post retomar`, `/astra-post remover`' },
+        { name: '🎉 Criatividade & Interação', value: '`/pergunta`, `/enquete`, `/desafio`, `/reativar`' },
+        { name: '❓ Utilidades', value: '`/faq adicionar`, `/faq perguntar`, `/faq listar`, `/faq remover`' }
       )
       .setFooter({ text: 'Astra - Mantendo sua comunidade ativa!' })
       .setTimestamp();

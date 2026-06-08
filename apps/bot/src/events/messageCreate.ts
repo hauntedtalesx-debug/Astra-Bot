@@ -40,12 +40,16 @@ export default {
         where: { guildId_userId: { guildId, userId } },
         update: { 
           messageCount: { increment: 1 },
+          weeklyMessageCount: { increment: 1 },
+          monthlyMessageCount: { increment: 1 },
           lastMessageAt: new Date()
         },
         create: {
           guildId,
           userId,
           messageCount: 1,
+          weeklyMessageCount: 1,
+          monthlyMessageCount: 1,
         }
       });
 

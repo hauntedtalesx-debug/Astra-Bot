@@ -1,67 +1,67 @@
-export const autoPostTemplates = {
-  "pt-BR": {
-    games: [
-      { type: "pergunta", content: "Qual jogo você não consegue parar de jogar ultimamente?" },
-      { type: "desafio", content: "Mande um print da sua tela de vitórias (ou derrotas) mais recente!" },
-      { type: "enquete", content: "Qual deve ser o próximo jogo da live?\n1. RPG\n2. FPS\n3. Terror\n4. Indie" },
-      { type: "meme", content: "Aquele momento que o boss está com 1% de HP e o controle desconecta... Reaja com um emoji que define esse sentimento!" }
-    ],
-    anime: [
-      { type: "pergunta", content: "Qual anime da temporada você está acompanhando e recomenda?" },
-      { type: "desafio", content: "Mande o wallpaper do seu anime favorito!" },
-      { type: "enquete", content: "Qual estilo de anime você prefere ver discutido na próxima live?\n1. Shounen\n2. Isekai\n3. Slice of Life\n4. Seinen" },
-      { type: "meme", content: "Descreva seu protagonista favorito usando apenas 3 emojis!" }
-    ],
-    tech: [
-      { type: "pergunta", content: "Qual é a sua linguagem de programação favorita e por quê?" },
-      { type: "desafio", content: "Mande uma foto do seu setup de trabalho/estudos!" },
-      { type: "enquete", content: "Qual tema de tecnologia você gostaria de ver na próxima live?\n1. Inteligência Artificial\n2. Desenvolvimento Web\n3. Hardware\n4. Cibersegurança" },
-      { type: "meme", content: "Quando o código compila de primeira sem erros... Qual é a sua reação?" }
-    ],
-    variedades: [
-      { type: "pergunta", content: "Qual foi a melhor parte do seu dia hoje?" },
-      { type: "desafio", content: "Qual música não sai da sua cabeça hoje? Mande o link!" },
-      { type: "enquete", content: "O que você gostaria de ver na live essa semana?\n1. Reacts\n2. Gameplay relaxante\n3. Bate-papo\n4. Assistir algo juntos" },
-      { type: "meme", content: "A live cai do nada. Qual meme te representa nesse momento?" }
-    ]
+export const Templates = {
+  pergunta: {
+    'pt-BR': {
+      games: ["Qual jogo você não consegue parar de jogar ultimamente?", "Qual foi o boss mais difícil que você já enfrentou?", "Prefere PC ou Console?"],
+      anime: ["Qual anime da temporada você está acompanhando e recomenda?", "Qual seu protagonista favorito?", "Manga ou Anime?"],
+      tech: ["Qual é a sua linguagem de programação favorita e por quê?", "Tabs ou Spaces?", "Qual foi seu primeiro computador?"],
+      variedades: ["Qual foi a melhor parte do seu dia hoje?", "Qual série você me recomenda?", "Café ou Chá?"]
+    }
   },
-  "en-US": {
-    games: [
-      { type: "pergunta", content: "What game are you currently addicted to?" },
-      { type: "desafio", content: "Drop a screenshot of your most recent victory (or fail) screen!" },
-      { type: "enquete", content: "What should we play next stream?\n1. RPG\n2. FPS\n3. Horror\n4. Indie" },
-      { type: "meme", content: "When the boss is at 1% HP and your controller disconnects... React with an emoji that describes this feeling!" }
-    ],
-    variety: [
-      { type: "pergunta", content: "What was the best part of your day today?" },
-      { type: "desafio", content: "What song is stuck in your head today? Share the link!" },
-      { type: "enquete", content: "What do you want to see on stream this week?\n1. Reacts\n2. Chill gameplay\n3. Just Chatting\n4. Watch party" },
-      { type: "meme", content: "The stream goes offline suddenly. What meme represents you right now?" }
-    ]
+  desafio: {
+    'pt-BR': {
+      games: ["Mande um print da sua tela de vitórias (ou derrotas) mais recente!", "Mostre o seu setup de jogo!"],
+      anime: ["Mande o wallpaper do seu anime favorito!", "Desenhe seu personagem favorito e mande a foto!"],
+      tech: ["Mande uma foto do seu ambiente de trabalho/estudos!", "Qual o uptime do seu PC agora?"],
+      variedades: ["Qual música não sai da sua cabeça hoje? Mande o link!", "Mande uma foto do seu pet!"]
+    }
   },
-  "es-ES": {
-    variedades: [
-      { type: "pergunta", content: "¿Cuál fue la mejor parte de tu día de hoy?" },
-      { type: "desafio", content: "¿Qué canción no te puedes sacar de la cabeza hoy? ¡Comparte el enlace!" },
-      { type: "enquete", content: "¿Qué te gustaría ver en el stream de esta semana?\n1. Reacciones\n2. Gameplay relajante\n3. Charla\n4. Ver algo juntos" },
-      { type: "meme", content: "El stream se cae de la nada. ¿Qué meme te representa en este momento?" }
-    ]
+  enquete: {
+    'pt-BR': {
+      games: ["Qual deve ser o próximo jogo da live?\n1️⃣ RPG\n2️⃣ FPS\n3️⃣ Terror\n4️⃣ Indie"],
+      anime: ["Qual estilo de anime prefere ver discutido?\n1️⃣ Shounen\n2️⃣ Isekai\n3️⃣ Slice of Life\n4️⃣ Seinen"],
+      tech: ["Qual tema você quer na próxima live?\n1️⃣ IA\n2️⃣ Web\n3️⃣ Hardware\n4️⃣ Segurança"],
+      variedades: ["O que gostaria de ver essa semana?\n1️⃣ Reacts\n2️⃣ Gameplay\n3️⃣ Bate-papo\n4️⃣ Filmes"]
+    }
   },
-  "fr-FR": {
-    variedades: [
-      { type: "pergunta", content: "Quelle a été la meilleure partie de votre journée aujourd'hui ?" },
-      { type: "desafio", content: "Quelle chanson avez-vous en tête aujourd'hui ? Partagez le lien !" },
-      { type: "enquete", content: "Que voulez-vous voir sur le stream cette semaine ?\n1. Réactions\n2. Gameplay relaxant\n3. Discussion\n4. Regarder ensemble" },
-      { type: "meme", content: "Le stream se coupe soudainement. Quel meme vous représente en ce moment ?" }
-    ]
-  },
-  "ja-JP": {
-    variedades: [
-      { type: "pergunta", content: "今日の最高の一日は何でしたか？" },
-      { type: "desafio", content: "今日頭から離れない曲は何ですか？リンクを共有してください！" },
-      { type: "enquete", content: "今週の配信で何を見たいですか？\n1. リアクション\n2. リラックスしたゲームプレイ\n3. 雑談\n4. 同時視聴" },
-      { type: "meme", content: "配信が突然オフラインになりました。今のあなたを表すミームは何ですか？" }
-    ]
+  reativacao: {
+    'pt-BR': {
+      games: [
+        "1. Torneio rápido valendo VIP",
+        "2. Sorteio de key de jogo indie",
+        "3. Dia da nostalgia: Jogue um clássico em call",
+        "4. Crie um canal de 'Procurando Duo'",
+        "5. Mostre as piores jogadas da semana",
+        "6. Faça uma tier list ao vivo",
+        "7. Desafio de Speedrun"
+      ],
+      anime: [
+        "1. Watchparty de episódio recém-lançado",
+        "2. Concurso de Cosplay (mesmo que de baixo custo)",
+        "3. Debates: Quem venceria?",
+        "4. Sorteio de mangá ou gift card",
+        "5. Tier list de aberturas de animes",
+        "6. Quiz de conhecimentos Otaku",
+        "7. Recomendação semanal da staff"
+      ],
+      tech: [
+        "1. Desafio de código (Hackathon de 2 horas)",
+        "2. Review de currículos ou portfólios ao vivo",
+        "3. Sorteio de curso ou livro de programação",
+        "4. Showoff: Mostre seus projetos pessoais",
+        "5. Discussão sobre a polêmica tech da semana",
+        "6. Sessão de pareamento ou co-working em call",
+        "7. AMA (Ask Me Anything) sobre carreira"
+      ],
+      variedades: [
+        "1. Noite de jogos (Gartic, Among Us, Jackbox)",
+        "2. Sessão cinema/filme na call",
+        "3. Sorteio de Nitro ou VIP",
+        "4. Concurso de memes do servidor",
+        "5. Podcast aberto com a comunidade",
+        "6. Dia de desabafo / conselhos",
+        "7. Compartilhe seu talento (Arte, Música, etc)"
+      ]
+    }
   }
 };
 
