@@ -11,14 +11,6 @@ export default {
         .setDescription('Canal para posts automáticos')
         .addChannelTypes(ChannelType.GuildText)
         .setRequired(true))
-    .addChannelOption(option => 
-      option.setName('ranking-channel')
-        .setDescription('Canal para exibir o ranking')
-        .addChannelTypes(ChannelType.GuildText))
-    .addChannelOption(option => 
-      option.setName('log-channel')
-        .setDescription('Canal para logs internos')
-        .addChannelTypes(ChannelType.GuildText))
     .addStringOption(option =>
       option.setName('idioma')
         .setDescription('Idioma do bot (pt-BR ou en-US)')
@@ -43,7 +35,15 @@ export default {
     .addStringOption(option =>
       option.setName('streamer-name')
         .setDescription('Nome do streamer/criador')
-        .setRequired(true)),
+        .setRequired(true))
+    .addChannelOption(option => 
+      option.setName('ranking-channel')
+        .setDescription('Canal para exibir o ranking')
+        .addChannelTypes(ChannelType.GuildText))
+    .addChannelOption(option => 
+      option.setName('log-channel')
+        .setDescription('Canal para logs internos')
+        .addChannelTypes(ChannelType.GuildText)),
         
   async execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply({ ephemeral: true });

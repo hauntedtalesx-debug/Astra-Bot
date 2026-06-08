@@ -25,6 +25,10 @@ export default {
     }
 
     try {
+      // Verifica se a guilda existe no banco (se o /setup já foi feito)
+      const dbGuild = await prisma.guild.findUnique({ where: { id: guildId } });
+      if (!dbGuild) return;
+
       // Verifica se o canal é ignorado
       const ignored = await prisma.ignoredChannel.findUnique({
         where: { guildId_channelId: { guildId, channelId } }
