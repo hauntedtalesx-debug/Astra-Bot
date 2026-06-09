@@ -511,3 +511,59 @@ model Ticket {
   createdAt   DateTime @default(now())
   closedAt    DateTime?
 }
+
+// Fase 5 - Perfil Global e Economia Estelar
+model UserProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique // Discord User ID
+  
+  astraCoins     Int      @default(0) // Economia Global
+  reputation     Int      @default(0) // Reputação (+rep)
+  
+  lastDailyAt    DateTime? // Último resgate diário
+  dailyStreak    Int      @default(0) // Sequência de resgates
+  
+  // Customizações
+  layoutId       String   @default("default")
+  backgroundUrl  String?
+  presetId       String?
+  
+  // Relações
+  pets           UserPet[]
+  badges         UserBadge[]
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model UserPet {
+  id             String   @id @default(cuid())
+  userProfileId  String
+  petId          String   // ID do pet
+  name           String?  // Apelido do pet
+  equipped       Boolean  @default(false)
+  
+  profile        UserProfile @relation(fields: [userProfileId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime @default(now())
+}
+
+model UserBadge {
+  id             String   @id @default(cuid())
+  userProfileId  String
+  badgeId        String   // ID da badge (ex: beta_tester, premium)
+  
+  profile        UserProfile @relation(fields: [userProfileId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime @default(now())
+}
+
+model Marriage {
+  id             String   @id @default(cuid())
+  userOneId      String   // Discord User ID 1
+  userTwoId      String   // Discord User ID 2
+  
+  marriedAt      DateTime @default(now())
+  
+  @@unique([userOneId, userTwoId])
+}
