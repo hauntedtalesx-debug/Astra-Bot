@@ -16,8 +16,10 @@ export async function checkBotPermissions(
   const missingPermissions: string[] = [];
 
   for (const perm of requiredPermissions) {
-    if (!interaction.channel.permissionsFor(botMember).has(perm)) {
-      missingPermissions.push(new PermissionsBitField(perm).toArray()[0]);
+    if ('permissionsFor' in interaction.channel) {
+      if (!interaction.channel.permissionsFor(botMember)?.has(perm)) {
+        missingPermissions.push(new PermissionsBitField(perm).toArray()[0]);
+      }
     }
   }
 

@@ -64,24 +64,3 @@ export const Templates = {
     }
   }
 };
-
-export function getRandomTemplate(language: string, niche: string, type?: string) {
-  const langTemplates = autoPostTemplates[language as keyof typeof autoPostTemplates] || autoPostTemplates['pt-BR'];
-  
-  // Define fallback niche key depending on available niches in that language
-  let nicheKey = niche;
-  if (!(niche in langTemplates)) {
-    nicheKey = 'variety' in langTemplates ? 'variety' : 'variedades';
-  }
-  
-  const nicheTemplates = langTemplates[nicheKey as keyof typeof langTemplates];
-  
-  let available = nicheTemplates;
-  if (type) {
-    available = nicheTemplates.filter(t => t.type === type);
-    if (available.length === 0) available = nicheTemplates; // fallback if type not found
-  }
-
-  const random = available[Math.floor(Math.random() * available.length)];
-  return random.content;
-}

@@ -36,9 +36,9 @@ export function startCronJobs(client: Client) {
         let items: string[] = [];
 
         if (schedule.type === 'pergunta' && Templates.pergunta) {
-          items = Templates.pergunta[lang]?.[niche] || Templates.pergunta['pt-BR']!['variedades'];
+          items = (Templates.pergunta as any)[lang]?.[niche] || Templates.pergunta['pt-BR']['variedades'];
         } else if (schedule.type === 'desafio' && Templates.desafio) {
-          items = Templates.desafio[lang]?.[niche] || Templates.desafio['pt-BR']!['variedades'];
+          items = (Templates.desafio as any)[lang]?.[niche] || Templates.desafio['pt-BR']['variedades'];
         } else {
           items = ["Comunidade, qual a novidade de hoje?"];
         }

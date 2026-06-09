@@ -1,12 +1,11 @@
 import { prisma } from "@astra/db";
 import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 
 const DAYS_OF_WEEK = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 
 export default async function AgendaPage({ params }: { params: { guildId: string } }) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session || !session.user) return notFound();
 
   const events = await prisma.creatorSchedule.findMany({

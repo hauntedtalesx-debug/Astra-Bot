@@ -60,7 +60,7 @@ export default {
         .setDescription(`${description ? `${description}\n\n` : ''}Reaja com 🎉 para participar!\n\n**Vencedores:** ${winnersCount}\n**Termina em:** <t:${Math.floor(endAt.getTime() / 1000)}:R>`);
 
       const channel = interaction.channel;
-      if (!channel) return;
+      if (!channel || !('send' in channel)) return;
 
       const message = await channel.send({ embeds: [embed] });
       await message.react("🎉");

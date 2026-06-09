@@ -47,6 +47,7 @@ export default {
         .setColor("#FFFF00")
         .setDescription(`📌 **Mensagem Fixada:**\n${messageText}`);
         
+      if (!interaction.channel || !('send' in interaction.channel)) return;
       const msg = await interaction.channel.send({ embeds: [embed] });
       
       await prisma.stickyMessage.update({

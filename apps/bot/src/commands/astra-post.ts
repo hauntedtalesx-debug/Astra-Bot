@@ -141,17 +141,19 @@ export default {
          return interaction.editReply('❌ Erro interno ao carregar templates.');
       }
       
-      let items = Templates.pergunta[lang]?.[niche] || Templates.pergunta['pt-BR']!['variedades'];
+      let items = (Templates.pergunta as any)[lang]?.[niche] || Templates.pergunta['pt-BR']['variedades'];
       if (type === 'desafio' && Templates.desafio) {
-        items = Templates.desafio[lang]?.[niche] || Templates.desafio['pt-BR']!['variedades'];
+        items = (Templates.desafio as any)[lang]?.[niche] || Templates.desafio['pt-BR']['variedades'];
       } else if (type === 'enquete' && Templates.enquete) {
         // Enquetes têm estrutura diferente, mas para teste simples podemos só avisar ou pegar a primeira
-        items = Object.keys(Templates.enquete[lang]?.[niche] || {}).map(q => q);
+        items = Object.keys((Templates.enquete as any)[lang]?.[niche] || {}).map(q => q);
       }
       
       const postText = items[Math.floor(Math.random() * items.length)] || "Post de teste gerado!";
       
-      await interaction.channel?.send({ content: `**[TESTE: ${type.toUpperCase()}]**\n${postText}` });
+      if (interaction.channel && 'send' in interaction.channel) {
+        await interaction.channel.send({ content: `**[TESTE: ${type.toUpperCase()}]**\n${postText}` });
+      }
       await interaction.editReply('✅ Post de teste enviado no canal!');
     }
   },

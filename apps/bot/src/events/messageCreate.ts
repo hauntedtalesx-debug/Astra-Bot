@@ -33,12 +33,13 @@ export default {
         }
         
         const embed = { color: 0xFFFF00, description: `📌 **Mensagem Fixada:**\n${sticky.messageText}` };
-        const newMsg = await message.channel.send({ embeds: [embed] });
-        
-        await prisma.stickyMessage.update({
-          where: { id: sticky.id },
-          data: { lastMessageId: newMsg.id }
-        });
+        if ('send' in message.channel) {
+          const newMsg = await message.channel.send({ embeds: [embed] });
+          await prisma.stickyMessage.update({
+            where: { id: sticky.id },
+            data: { lastMessageId: newMsg.id }
+          });
+        }
       }
     } catch (e) {
       console.error("Erro no Sticky Message:", e);

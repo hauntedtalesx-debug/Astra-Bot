@@ -111,7 +111,7 @@ export default {
       rows.push(currentRow);
 
       const channel = interaction.channel;
-      if (channel) {
+      if (channel && 'send' in channel) {
         await channel.send({ embeds: [embed], components: rows as any });
       }
 

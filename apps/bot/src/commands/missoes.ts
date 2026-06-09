@@ -54,7 +54,7 @@ export default {
 
       // Opcional: enviar aviso no chat geral se o Admin estiver nele
       const channel = interaction.channel;
-      if (channel) {
+      if (channel && 'send' in channel) {
         const embed = new EmbedBuilder()
           .setTitle(`🎯 Nova Missão: ${title}`)
           .setColor("#FFD700")
