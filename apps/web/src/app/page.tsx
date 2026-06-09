@@ -65,32 +65,14 @@ export default function LandingPage() {
               </div>
             </div>
             
-            {/* Mascot Image / Logo */}
-            <div className="flex-1 flex justify-center items-center relative perspective-1000">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent z-10 pointer-events-none"></div>
-              {/* 3D Container */}
-              <div className="relative group perspective-1000">
-                <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-70 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                <img 
-                  src="/logo_astra.jpg" 
-                  alt="Astra Logo" 
-                  className="relative w-full max-w-sm rounded-3xl shadow-2xl transition-all duration-500 ease-out group-hover:rotate-x-12 group-hover:-rotate-y-12 group-hover:scale-105 border border-white/10"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    animation: 'float 6s ease-in-out infinite'
-                  }}
-                />
-                <style jsx>{`
-                  @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-20px); }
-                    100% { transform: translateY(0px); }
-                  }
-                  .perspective-1000 { perspective: 1000px; }
-                  .rotate-x-12 { transform: rotateX(12deg); }
-                  .-rotate-y-12 { transform: rotateY(-12deg); }
-                `}</style>
-              </div>
+            {/* Mascot Image */}
+            <div className="flex-1 flex justify-center items-center relative">
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent z-10"></div>
+              <img 
+                src="/astra_mascot.png" 
+                alt="Astra Mascot" 
+                className="w-full max-w-md animate-[bounce_4s_infinite] drop-shadow-[0_0_30px_rgba(168,85,247,0.4)] relative z-20"
+              />
             </div>
           </div>
         </div>

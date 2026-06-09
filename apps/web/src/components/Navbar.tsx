@@ -17,9 +17,7 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/10">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-purple-500/20">
-            A
-          </div>
+          <img src="/logo_astra.jpg" alt="Astra Logo" className="w-10 h-10 rounded-xl" />
           <span className="text-2xl font-bold tracking-tight">Astra</span>
         </Link>
 
