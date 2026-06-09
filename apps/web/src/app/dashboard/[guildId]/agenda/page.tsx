@@ -32,7 +32,7 @@ export default async function AgendaPage({ params }: { params: { guildId: string
               <p className="text-gray-500 italic">Livre</p>
             ) : (
               <ul className="space-y-3">
-                {grouped[idx].map(event => (
+                {grouped[idx].map((event: any) => (
                   <li key={event.id} className="bg-gray-700 p-3 rounded">
                     <div className="font-bold text-white flex items-center justify-between">
                       <span>{event.title}</span>
