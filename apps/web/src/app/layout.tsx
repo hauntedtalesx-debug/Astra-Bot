@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Astra | A sua gerente de comunidade com IA",
-  description: "Astra mantém sua comunidade ativa mesmo quando você está offline. O bot perfeito para streamers.",
+  title: "Astra | A sua assistente cósmica",
+  description: "Astra ajuda streamers e criadores a manterem seus servidores ativos com posts automáticos, ranking de membros e gamificação.",
 };
 
 import { Providers } from "@/components/Providers";
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="dark">
-      <body className={`${inter.className} bg-neutral-950 text-neutral-50 antialiased`}>
+      <body className={`${outfit.className} bg-cosmic-gradient text-neutral-50 antialiased min-h-screen`}>
         <Providers>
           {children}
         </Providers>

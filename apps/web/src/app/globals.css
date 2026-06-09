@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-astra-dark: #0f0c29;
-  --color-astra-purple: #8e44ad;
-  --color-astra-blue: #3498db;
+  --color-astra-dark: #070B19;
+  --color-astra-navy: #0A1128;
+  --color-astra-purple: #9D4EDD;
+  --color-astra-purple-neon: #C77DFF;
+  --color-astra-blue: #3A0CA3;
+  --color-astra-cyan: #4CC9F0;
+  --color-astra-lilac: #E0AAFF;
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #070B19;
+    --foreground: #F8F9FA;
   }
   
   html {
@@ -19,24 +26,51 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    overflow-x: hidden;
   }
 
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: #0A1128;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #2a2a2a;
-    border-radius: 4px;
+    background: #3A0CA3;
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #4a4a4a;
+    background: #9D4EDD;
   }
+}
+
+@layer utilities {
+  .bg-cosmic-gradient {
+    background: linear-gradient(135deg, #070B19 0%, #0A1128 50%, #1A0B2E 100%);
+  }
+  .bg-primary-gradient {
+    background: linear-gradient(90deg, #9D4EDD 0%, #4CC9F0 100%);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #E0AAFF 0%, #4CC9F0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glass-panel {
+    background: rgba(10, 17, 40, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
