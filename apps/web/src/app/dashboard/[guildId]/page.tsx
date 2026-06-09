@@ -51,6 +51,11 @@ export default async function GuildDashboard({ params }: { params: { guildId: st
 
       <h3 className="text-xl font-bold mt-8 mb-4">Gerenciar</h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Link href={`/dashboard/${guild.id}/embeds`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-purple-500/50 group shadow-[0_0_15px_rgba(168,85,247,0.15)] relative overflow-hidden">
+          <div className="absolute top-0 right-0 px-2 py-1 bg-purple-500 text-white text-[10px] font-bold rounded-bl-lg">NOVO</div>
+          <h4 className="font-bold mb-2 group-hover:text-purple-400 transition-colors flex items-center gap-2">✨ Embed Builder</h4>
+          <p className="text-sm text-neutral-400">Personalize o visual de todas as mensagens do bot (Cor, Imagens, Layout).</p>
+        </Link>
         <Link href={`/dashboard/${guild.id}/integrations`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-purple-500/20 group">
           <h4 className="font-bold mb-2 group-hover:text-purple-400 transition-colors">Integrações (Live & YT)</h4>
           <p className="text-sm text-neutral-400">Verifique alertas de live na Twitch e vídeos do YouTube.</p>
