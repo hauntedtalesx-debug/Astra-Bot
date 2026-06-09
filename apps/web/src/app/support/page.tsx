@@ -15,6 +15,11 @@ export default function SupportPage() {
           Estamos aqui para ajudar você a configurar a Astra e tirar o máximo de proveito na sua comunidade.
         </p>
 
+        <h2 className="text-2xl font-bold mb-4">Ainda precisa de ajuda?</h2>
+        <p className="text-neutral-400 mb-6">
+          Nossa equipe e a comunidade estão sempre prontas para ajudar. Junte-se ao nosso servidor oficial e abra um ticket ou tire suas dúvidas no canal &quot;suporte-geral&quot;.
+        </p>
+
         <div className="p-8 rounded-3xl bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/20 mb-8">
           <h2 className="text-2xl font-bold mb-2">Comunidade no Discord</h2>
           <p className="text-neutral-300 mb-6">A forma mais rápida de obter suporte é entrando no nosso servidor oficial. Nossa equipe e outros administradores estão lá para ajudar.</p>

@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { prisma } from "@astra/db";
 import { ServerList } from "@/components/dashboard/ServerList";
-import { Navbar } from "@/components/Navbar";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -34,14 +33,10 @@ export default async function DashboardPage() {
   const allGuilds = [...installedGuilds, ...mockGuilds];
 
   return (
-    <div className="min-h-screen bg-[#070B19] text-white">
-      <Navbar />
-      <div className="pt-32 pb-24 px-6 relative">
-         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
-         <div className="relative z-10">
+    <div className="pt-12 pb-24 px-6 md:px-12 relative w-full">
+         <div className="relative z-10 w-full">
            <ServerList guilds={allGuilds} />
          </div>
-      </div>
     </div>
   );
 }

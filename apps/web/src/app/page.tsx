@@ -300,66 +300,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* PLANOS */}
-      <section id="planos" className="py-24 relative">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Escolha seu plano cósmico</h2>
-            <p className="text-lg text-neutral-400">Comece de graça e faça o upgrade quando sua comunidade decolar.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Free */}
-            <div className="p-8 rounded-3xl glass-panel">
-              <h3 className="text-2xl font-bold mb-2">Poeira Estelar (Free)</h3>
-              <div className="text-4xl font-bold mb-6">Grátis</div>
-              <ul className="space-y-4 mb-8 text-neutral-300">
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Posts automáticos limitados</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ranking básico</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> FAQ básico</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> 1 alerta de Live</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ideal para testar</li>
-              </ul>
-              <Link href="/dashboard" className="block w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition-colors">
-                Começar Grátis
-              </Link>
-            </div>
-
-            {/* Pro */}
-            <div className="p-8 rounded-3xl border border-purple-500 bg-gradient-to-b from-purple-900/40 to-transparent relative shadow-[0_0_30px_rgba(157,78,221,0.2)] transform md:-translate-y-4">
-              <div className="absolute top-0 right-8 -translate-y-1/2 bg-primary-gradient px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white">Recomendado</div>
-              <h3 className="text-2xl font-bold mb-2 text-purple-400">Supernova (Pro)</h3>
-              <div className="text-4xl font-bold mb-6">R$ 15<span className="text-lg text-neutral-400 font-normal">/mês</span></div>
-              <ul className="space-y-4 mb-8 text-neutral-300">
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Posts diários ilimitados</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ranking completo c/ relatórios</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Lives e YouTube Alerts</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Sistema de Clipes e Shorts</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ideal para streamers</li>
-              </ul>
-              <Link href="/dashboard" className="block w-full py-4 rounded-xl bg-primary-gradient hover:scale-105 text-center font-bold transition-transform shadow-lg">
-                Assinar Pro
-              </Link>
-            </div>
-
-            {/* Creator */}
-            <div className="p-8 rounded-3xl glass-panel">
-              <h3 className="text-2xl font-bold mb-2">Galáxia (Creator)</h3>
-              <div className="text-4xl font-bold mb-6">R$ 35<span className="text-lg text-neutral-400 font-normal">/mês</span></div>
-              <ul className="space-y-4 mb-8 text-neutral-300">
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Recursos avançados</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Múltiplas integrações</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Módulos completos e limites maiores</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Prioridade no suporte</li>
-                <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ideal para comunidades gigantes</li>
-              </ul>
-              <Link href="/dashboard" className="block w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition-colors">
-                Assinar Creator
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* PLANOS MOVIDOS PARA O DASHBOARD */}
 
       {/* FAQ PUBLICA */}
       <section className="py-24 bg-[#0A1128]">
