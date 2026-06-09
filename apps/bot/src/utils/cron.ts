@@ -1,4 +1,4 @@
-import { Client, TextChannel } from 'discord.js';
+import { Client, TextChannel, EmbedBuilder } from 'discord.js';
 import cron from 'node-cron';
 import { prisma } from '@astra/db';
 
@@ -86,6 +86,106 @@ export function startCronJobs(client: Client) {
       });
     } catch (e) {
       console.error('Error on monthly cron:', e);
+    }
+  });
+
+  // Integration Check: Twitch/YouTube Live & Youtube Videos (Runs every 5 minutes)
+  cron.schedule('*/5 * * * *', async () => {
+    try {
+      const integrations = await prisma.creatorIntegration.findMany({
+        where: { enabled: true },
+        include: { guild: { include: { settings: true } } }
+      });
+
+      for (const integration of integrations) {
+        if (!integration.guild.settings?.liveEnabled) continue;
+
+        // In a real scenario, here we'd fetch from Twitch API
+        // if (process.env.TWITCH_CLIENT_ID) { ... }
+        
+        // Mock Implementation for demonstration purposes:
+        // Let's pretend we hit the API and it's online but we prevent spam by checking lastLiveId
+        // In real code: check if online, get current liveId, compare with lastLiveId.
+        const mockLiveId = "live_" + new Date().toISOString().split('T')[0]; // One per day max
+        
+        if (integration.lastLiveId !== mockLiveId) {
+          const channel = client.channels.cache.get(integration.discordChannelId) as TextChannel;
+          if (channel) {
+            const embed = new EmbedBuilder()
+              .setTitle(`🔴 ${integration.creatorUsername} está ao vivo!`)
+              .setDescription(`A Astra detectou a live na plataforma ${integration.platform} e avisou a comunidade!\n\n**Assistir agora:** https://${integration.platform}.com/${integration.creatorUsername}`)
+              .setColor("#9146FF");
+
+            await channel.send({ 
+              content: integration.customMessage ? integration.customMessage : (integration.mentionRoleId ? `<@&${integration.mentionRoleId}>` : ''),
+              embeds: [embed] 
+            });
+            
+            await prisma.creatorIntegration.update({
+              where: { id: integration.id },
+              data: { lastLiveId: mockLiveId, lastAnnouncedAt: new Date() }
+            });
+
+            await prisma.liveAnnouncementLog.create({
+              data: {
+                guildId: integration.guildId,
+                integrationId: integration.id,
+                platform: integration.platform,
+                liveId: mockLiveId,
+                title: "Live Mockada",
+                url: `https://${integration.platform}.com/${integration.creatorUsername}`
+              }
+            });
+          }
+        }
+      }
+
+      // YouTube Videos Check
+      const ytIntegrations = await prisma.youtubeIntegration.findMany({
+        where: { enabled: true },
+        include: { guild: { include: { settings: true } } }
+      });
+
+      for (const yt of ytIntegrations) {
+        if (!yt.guild.settings?.youtubeEnabled) continue;
+
+        // Mock Implementation
+        const mockVideoId = "video_" + new Date().toISOString().split('T')[0];
+        
+        if (yt.lastVideoId !== mockVideoId) {
+          const channel = client.channels.cache.get(yt.discordChannelId) as TextChannel;
+          if (channel) {
+            const embed = new EmbedBuilder()
+              .setTitle("🎬 Novo vídeo no canal!")
+              .setDescription(`Saiu vídeo novo do **${yt.youtubeChannelName}**!\n\nDepois de assistir, volta aqui e comenta: *Qual foi a melhor parte do vídeo?*`)
+              .setColor("#FF0000")
+              .setURL(`https://youtube.com/channel/${yt.youtubeChannelId}`);
+
+            await channel.send({ 
+              content: yt.mentionRoleId ? `<@&${yt.mentionRoleId}>` : '',
+              embeds: [embed] 
+            });
+            
+            await prisma.youtubeIntegration.update({
+              where: { id: yt.id },
+              data: { lastVideoId: mockVideoId }
+            });
+
+            await prisma.youtubeAnnouncementLog.create({
+              data: {
+                guildId: yt.guildId,
+                integrationId: yt.id,
+                videoId: mockVideoId,
+                title: "Video Mockado",
+                url: `https://youtube.com/channel/${yt.youtubeChannelId}`
+              }
+            });
+          }
+        }
+      }
+
+    } catch (e) {
+      console.error('Error on integration checks cron:', e);
     }
   });
 

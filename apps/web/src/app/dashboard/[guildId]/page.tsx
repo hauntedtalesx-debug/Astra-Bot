@@ -50,13 +50,25 @@ export default async function GuildDashboard({ params }: { params: { guildId: st
       </div>
 
       <h3 className="text-xl font-bold mt-8 mb-4">Gerenciar</h3>
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Link href={`/dashboard/${guild.id}/integrations`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-purple-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-purple-400 transition-colors">Integrações (Live & YT)</h4>
+          <p className="text-sm text-neutral-400">Verifique alertas de live na Twitch e vídeos do YouTube.</p>
+        </Link>
+        <Link href={`/dashboard/${guild.id}/clips`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-blue-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-blue-400 transition-colors">Central de Clipes</h4>
+          <p className="text-sm text-neutral-400">Gerencie clipes enviados pela sua comunidade.</p>
+        </Link>
+        <Link href={`/dashboard/${guild.id}/shorts`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-pink-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-pink-400 transition-colors">Ideias de Shorts</h4>
+          <p className="text-sm text-neutral-400">Acesse seus roteiros e ganchos salvos para gravar depois.</p>
+        </Link>
         <Link href={`/dashboard/${guild.id}/posts`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-white/5 group">
-          <h4 className="font-bold mb-2 group-hover:text-purple-400 transition-colors">Posts Automáticos</h4>
+          <h4 className="font-bold mb-2 group-hover:text-white transition-colors">Posts Automáticos</h4>
           <p className="text-sm text-neutral-400">Configure enquetes, perguntas e desafios recorrentes.</p>
         </Link>
         <Link href={`/dashboard/${guild.id}/faq`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-white/5 group">
-          <h4 className="font-bold mb-2 group-hover:text-blue-400 transition-colors">FAQ da Comunidade</h4>
+          <h4 className="font-bold mb-2 group-hover:text-white transition-colors">FAQ da Comunidade</h4>
           <p className="text-sm text-neutral-400">Cadastre respostas para as perguntas mais comuns.</p>
         </Link>
         <Link href={`/dashboard/${guild.id}/ranking`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-white/5 group">
