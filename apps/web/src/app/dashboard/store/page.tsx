@@ -1,23 +1,68 @@
 "use client";
 
-import { ShoppingCart, Star, Box, Zap, Sparkles, Diamond } from "lucide-react";
-import { useState } from "react";
+import { ShoppingCart, Box, Zap, Sparkles, Diamond, Crown, Loader2, Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import { getUserBalance, purchaseItem } from "@/actions/store";
 
 const STORE_ITEMS = [
   { id: 1, name: "VIP Cósmico (30 dias)", price: 5000, icon: <Crown size={32} className="text-yellow-400" />, desc: "Destaque no ranking e acesso a comandos exclusivos.", category: "Vantagens" },
   { id: 2, name: "Multiplicador XP (x2)", price: 1500, icon: <Zap size={32} className="text-cyan-400" />, desc: "Ganha o dobro de XP por 24 horas no servidor.", category: "Boosters" },
-  { id: 3, name: "Fundo de Perfil: Galáxia", price: 3000, icon: <Sparkles size={32} className="text-purple-400" />, desc: "Um fundo animado de galáxia para o seu cartão de perfil.", category: "Cosméticos" },
-  { id: 4, name: "Caixa Misteriosa", price: 1000, icon: <Box size={32} className="text-pink-400" />, desc: "Pode conter AstraCoins, XP ou itens super raros!", category: "Lootboxes" }
+  { id: 3, name: "Fundo de Perfil: Galáxia", price: 300, icon: <Sparkles size={32} className="text-purple-400" />, desc: "Um fundo animado de galáxia para o seu cartão de perfil.", category: "Cosméticos" },
+  { id: 4, name: "Caixa Misteriosa", price: 100, icon: <Box size={32} className="text-pink-400" />, desc: "Pode conter AstraCoins, XP ou itens super raros!", category: "Lootboxes" }
 ];
 
-import { Crown } from "lucide-react";
-
 export default function StorePage() {
-  const [balance] = useState(2540); // Fictício
+  const [balance, setBalance] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("Todos");
+  
+  const [purchasing, setPurchasing] = useState<number | null>(null);
+  const [notification, setNotification] = useState<{message: string, isError: boolean} | null>(null);
+
+  useEffect(() => {
+    // Busca o saldo real do banco de dados ao abrir a página
+    getUserBalance().then(realBalance => {
+      setBalance(realBalance);
+      setLoading(false);
+    });
+  }, []);
+
+  const handlePurchase = async (itemId: number, price: number, name: string) => {
+    setPurchasing(itemId);
+    setNotification(null);
+    
+    const result = await purchaseItem(itemId, price, name);
+    
+    if (result.success) {
+      setBalance(result.newBalance!);
+      setNotification({ message: result.message!, isError: false });
+    } else {
+      setNotification({ message: result.error!, isError: true });
+    }
+    
+    setPurchasing(null);
+    
+    // Some com a notificação depois de 3 segundos
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-64"><Loader2 className="animate-spin text-cyan-400" size={48} /></div>;
+  }
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-6">
+      
+      {/* Toast de Notificação flutuante */}
+      {notification && (
+        <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full flex items-center gap-2 font-bold shadow-2xl animate-in slide-in-from-top-4 ${notification.isError ? 'bg-red-500/90 text-white' : 'bg-green-500/90 text-white'}`}>
+          {!notification.isError && <Check size={20} />}
+          {notification.message}
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
         <div>
           <h1 className="text-4xl font-extrabold mb-2 flex items-center gap-3">
@@ -69,11 +114,11 @@ export default function StorePage() {
                  <Diamond size={14} /> {item.price}
                </span>
                <button 
-                 className={`px-4 py-2 rounded-lg font-bold text-sm transition-colors ${balance >= item.price ? 'bg-cyan-500 hover:bg-cyan-400 text-black' : 'bg-neutral-800 text-neutral-500 cursor-not-allowed'}`}
-                 disabled={balance < item.price}
-                 onClick={() => alert(`Você comprou: ${item.name}`)}
+                 className={`px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center justify-center min-w-[80px] ${balance >= item.price ? 'bg-cyan-500 hover:bg-cyan-400 text-black' : 'bg-neutral-800 text-neutral-500 cursor-not-allowed'}`}
+                 disabled={balance < item.price || purchasing !== null}
+                 onClick={() => handlePurchase(item.id, item.price, item.name)}
                >
-                 Comprar
+                 {purchasing === item.id ? <Loader2 size={16} className="animate-spin" /> : "Comprar"}
                </button>
              </div>
           </div>
