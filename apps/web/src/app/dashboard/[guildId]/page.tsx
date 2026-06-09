@@ -99,6 +99,10 @@ export default async function GuildDashboard({ params }: { params: { guildId: st
           <h4 className="font-bold mb-2 group-hover:text-green-400 transition-colors">Ranking e Membros</h4>
           <p className="text-sm text-neutral-400">Veja quem são os usuários mais ativos do servidor.</p>
         </Link>
+        <Link href={`/dashboard/${guild.id}/logs`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-red-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-red-400 transition-colors">Logs Avançados</h4>
+          <p className="text-sm text-neutral-400">Auditoria completa de tickets, compras na loja e moderação.</p>
+        </Link>
         <Link href={`/dashboard/${guild.id}/settings`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-white/5 group">
           <h4 className="font-bold mb-2 group-hover:text-yellow-400 transition-colors">Configurações</h4>
           <p className="text-sm text-neutral-400">Altere canais, nicho, links de redes sociais e logs.</p>

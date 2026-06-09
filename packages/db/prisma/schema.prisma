@@ -100,6 +100,10 @@ model Guild {
   autoRoles           AutoRole[]
   giveaways           Giveaway[]
   stickyMessages      StickyMessage[]
+  
+  storeItems          StoreItem[]
+  purchases           Purchase[]
+  tickets             Ticket[]
 }
 
 model GuildSettings {
@@ -149,11 +153,12 @@ model GuildSettings {
 model MemberActivity {
   id            String   @id @default(cuid())
   guildId       String
-  userId            String // Discord User ID
-  messageCount      Int      @default(0)
-  weeklyMessageCount Int     @default(0)
-  monthlyMessageCount Int    @default(0)
-  lastMessageAt     DateTime @default(now())
+  userId              String // Discord User ID
+  messageCount        Int      @default(0)
+  weeklyMessageCount  Int      @default(0)
+  monthlyMessageCount Int      @default(0)
+  points              Int      @default(0) // AstraCoins ou pontos da loja
+  lastMessageAt       DateTime @default(now())
   
   guild         Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
@@ -444,4 +449,47 @@ model StickyMessage {
   guild         Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
   @@unique([guildId, channelId])
+}
+
+// Fase 4 - Sistema de Loja
+model StoreItem {
+  id          String   @id @default(cuid())
+  guildId     String
+  name        String
+  description String?  @db.Text
+  price       Int      @default(0)
+  roleId      String?  // Opcional: Entregar um cargo automaticamente
+  active      Boolean  @default(true)
+  
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  purchases   Purchase[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Purchase {
+  id          String   @id @default(cuid())
+  guildId     String
+  userId      String   // Discord User ID
+  itemId      String
+  
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  item        StoreItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  
+  purchasedAt DateTime @default(now())
+}
+
+// Fase 4 - Sistema de Tickets
+model Ticket {
+  id          String   @id @default(cuid())
+  guildId     String
+  userId      String   // Discord User ID de quem abriu
+  channelId   String   // ID do canal privado criado
+  status      String   @default("OPEN") // OPEN, CLOSED
+  
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  closedAt    DateTime?
 }
