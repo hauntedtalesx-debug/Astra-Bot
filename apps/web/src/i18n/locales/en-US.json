@@ -68,5 +68,27 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "support": "Support"
+  },
+  "sidebar": {
+    "base": "Cosmic Base",
+    "servers": "My Servers",
+    "premium": "Astra Premium",
+    "mobile": "Astra Mobile",
+    "minecraft": "Community Server",
+    "economy": "Stellar Economy",
+    "shop": "Cosmic Market",
+    "daily": "Daily Reward",
+    "personalization": "Personalization",
+    "notifications": "Cosmic Alerts",
+    "profile_layout": "Profile Layout",
+    "profile_bg": "Profile Background",
+    "badges": "Badges",
+    "collections": "Collections",
+    "presets": "Presets",
+    "cosmetics": "Cosmetics Shop",
+    "pets": "Cosmic Companions",
+    "misc": "Exploration",
+    "ship": "Cosmic Marriage",
+    "reputation": "Galactic Reputation"
   }
 }

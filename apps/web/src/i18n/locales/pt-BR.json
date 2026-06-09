@@ -66,5 +66,27 @@
     "privacy": "Privacidade",
     "terms": "Termos de Uso",
     "support": "Suporte"
+  },
+  "sidebar": {
+    "base": "Base Cósmica",
+    "servers": "Meus Servidores",
+    "premium": "Astra Premium",
+    "mobile": "Astra Mobile",
+    "minecraft": "Servidor da Comunidade",
+    "economy": "Economia Estelar",
+    "shop": "Mercado Cósmico",
+    "daily": "Resgate Diário",
+    "personalization": "Personalização",
+    "notifications": "Alertas Cósmicos",
+    "profile_layout": "Layout do Perfil",
+    "profile_bg": "Fundo do Perfil",
+    "badges": "Insígnias",
+    "collections": "Coleções",
+    "presets": "Predefinições",
+    "cosmetics": "Loja de Cosméticos",
+    "pets": "Companheiros Cósmicos",
+    "misc": "Exploração",
+    "ship": "Casamento Cósmico",
+    "reputation": "Reputação Galáctica"
   }
 }

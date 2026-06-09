@@ -17,7 +17,7 @@ export default async function DashboardPage() {
   });
 
   // Convert DB guilds to UI format
-  const installedGuilds = dbGuilds.map((g: any) => ({
+  const installedGuilds = dbGuilds.map((g: { id: string, name: string }) => ({
     id: g.id,
     name: g.name,
     role: "Dono",

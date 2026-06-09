@@ -42,7 +42,7 @@ export default function SupportPage() {
               <span className="text-purple-400 group-open:rotate-180 transition-transform">▼</span>
             </summary>
             <p className="text-neutral-400 mt-4 leading-relaxed">
-              Vá até o Dashboard, selecione seu servidor e clique em "Engajamento". Lá você pode ativar o ranking, definir quantos pontos por mensagem e criar recompensas (cargos).
+              Vá até o Dashboard, selecione seu servidor e clique em &quot;Engajamento&quot;. Lá você pode ativar o ranking, definir quantos pontos por mensagem e criar recompensas (cargos).
             </p>
           </details>
 
