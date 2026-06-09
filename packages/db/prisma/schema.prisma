@@ -85,6 +85,15 @@ model Guild {
   faqs           FAQItem[]
   weeklyReports  WeeklyReport[]
   ignoredChannels IgnoredChannel[]
+
+  auditLogs           AuditLog[]
+  creatorIntegrations CreatorIntegration[]
+  youtubeIntegrations YoutubeIntegration[]
+  clipSubmissions     ClipSubmission[]
+  clipSettings        ClipSettings?
+  shortIdeas          ShortIdea[]
+  liveAnnouncementLogs LiveAnnouncementLog[]
+  youtubeAnnouncementLogs YoutubeAnnouncementLog[]
 }
 
 model GuildSettings {
@@ -99,6 +108,8 @@ model GuildSettings {
   language          String   @default("pt-BR") // pt-BR, en-US
   niche             String   @default("variedades") // games, anime, tech, variedades
   streamerName      String?
+  autoPostPaused    Boolean  @default(false)
+  weeklyReportChannelId String?
   
   // Links
   twitchUrl         String?
@@ -111,6 +122,20 @@ model GuildSettings {
   planId            String?
   plan              SubscriptionPlan? @relation(fields: [planId], references: [id])
   
+  astraAdminRoleId  String? // Cargo de admin do Astra
+  
+  // Feature Flags
+  liveEnabled       Boolean  @default(true)
+  youtubeEnabled    Boolean  @default(true)
+  clipsEnabled      Boolean  @default(true)
+  shortsEnabled     Boolean  @default(true)
+  scheduleEnabled   Boolean  @default(true)
+  missionsEnabled   Boolean  @default(true)
+  welcomeEnabled    Boolean  @default(true)
+  rolesEnabled      Boolean  @default(true)
+  giveawaysEnabled  Boolean  @default(true)
+  stickyEnabled     Boolean  @default(true)
+
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
@@ -118,9 +143,11 @@ model GuildSettings {
 model MemberActivity {
   id            String   @id @default(cuid())
   guildId       String
-  userId        String // Discord User ID
-  messageCount  Int      @default(0)
-  lastMessageAt DateTime @default(now())
+  userId            String // Discord User ID
+  messageCount      Int      @default(0)
+  weeklyMessageCount Int     @default(0)
+  monthlyMessageCount Int    @default(0)
+  lastMessageAt     DateTime @default(now())
   
   guild         Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
@@ -186,4 +213,138 @@ model WeeklyReport {
   sentAt       DateTime @default(now())
   
   guild        Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+}
+
+// Audit Logs
+model AuditLog {
+  id        String   @id @default(cuid())
+  guildId   String
+  userId    String
+  action    String
+  metadata  String?  @db.Text
+  createdAt DateTime @default(now())
+
+  guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, createdAt])
+}
+
+// Fase 3.1 - Live Connect
+model CreatorIntegration {
+  id               String   @id @default(cuid())
+  guildId          String
+  platform         String   // twitch, youtube, kick
+  creatorUsername  String
+  discordChannelId String
+  mentionRoleId    String?
+  customMessage    String?  @db.Text
+  lastLiveId       String?
+  lastAnnouncedAt  DateTime?
+  enabled          Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  guild            Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  logs             LiveAnnouncementLog[]
+
+  @@unique([guildId, platform, creatorUsername])
+  @@index([guildId, platform, enabled])
+}
+
+model LiveAnnouncementLog {
+  id            String   @id @default(cuid())
+  guildId       String
+  integrationId String
+  platform      String
+  liveId        String
+  title         String   @db.Text
+  url           String
+  announcedAt   DateTime @default(now())
+
+  guild         Guild              @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  integration   CreatorIntegration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, platform])
+}
+
+// Fase 3.1 - YouTube Connect
+model YoutubeIntegration {
+  id                 String   @id @default(cuid())
+  guildId            String
+  youtubeChannelId   String
+  youtubeChannelName String
+  discordChannelId   String
+  mentionRoleId      String?
+  lastVideoId        String?
+  enabled            Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  guild              Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  logs               YoutubeAnnouncementLog[]
+
+  @@unique([guildId, youtubeChannelId])
+  @@index([guildId, enabled])
+}
+
+model YoutubeAnnouncementLog {
+  id            String   @id @default(cuid())
+  guildId       String
+  integrationId String
+  videoId       String
+  title         String   @db.Text
+  url           String
+  announcedAt   DateTime @default(now())
+
+  guild         Guild              @relation(fields: [guildId], references: [id], onDelete: Cascade)
+  integration   YoutubeIntegration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+
+  @@index([guildId])
+}
+
+// Fase 3.1 - Sistema de Clipes
+model ClipSettings {
+  id                String   @id @default(cuid())
+  guildId           String   @unique
+  submissionChannelId String?
+  approvedChannelId   String?
+  logsChannelId       String?
+
+  guild             Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+}
+
+model ClipSubmission {
+  id            String   @id @default(cuid())
+  guildId       String
+  userId        String
+  username      String
+  url           String
+  description   String?  @db.Text
+  status        String   @default("PENDING") // PENDING, APPROVED, REJECTED, FEATURED
+  reviewedBy    String?
+  reviewReason  String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  guild         Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, status])
+}
+
+// Fase 3.1 - Ideias para Shorts
+model ShortIdea {
+  id          String   @id @default(cuid())
+  guildId     String
+  createdBy   String
+  title       String
+  hook        String   @db.Text
+  script      String   @db.Text
+  niche       String
+  status      String   @default("SAVED") // SAVED, USED, ARCHIVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, status])
 }
