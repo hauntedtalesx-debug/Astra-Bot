@@ -42,8 +42,8 @@ export function DashboardSidebar({ user }: { user: DashboardUser | null }) {
           <Link href="/dashboard/mobile" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
             <Smartphone size={18} /> {t.sidebar.mobile}
           </Link>
-          <Link href="/dashboard/minecraft" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-            <Pickaxe size={18} /> {t.sidebar.minecraft}
+          <Link href="/dashboard/community" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
+            <Pickaxe size={18} /> {t.sidebar.community || t.sidebar.minecraft}
           </Link>
         </div>
 
