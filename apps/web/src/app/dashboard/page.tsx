@@ -42,7 +42,7 @@ export default async function DashboardPage() {
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {guilds.map(guild => (
+          {guilds.map((guild: any) => (
             <Link href={`/dashboard/${guild.id}`} key={guild.id} className="p-6 border border-white/5 rounded-2xl bg-neutral-900/30 hover:border-purple-500/30 hover:bg-neutral-900/50 transition-all group">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center font-bold text-lg group-hover:bg-purple-500/20 group-hover:text-purple-400 transition-colors">
