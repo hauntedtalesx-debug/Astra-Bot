@@ -34,75 +34,75 @@ export function DashboardSidebar({ user }: { user: DashboardUser | null }) {
         {/* Base Menu */}
         <div className="space-y-1 mb-8">
           <Link href="/dashboard" className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname === "/dashboard" ? "bg-cyan-500/10 text-cyan-400" : "text-neutral-400 hover:text-white hover:bg-white/5"}`}>
-            <Home size={18} /> {t("sidebar.servers")}
+            <Home size={18} /> {t.sidebar.servers}
           </Link>
           <Link href="/dashboard/premium" className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname.includes("/premium") ? "bg-cyan-500/10 text-cyan-400" : "text-neutral-400 hover:text-white hover:bg-white/5"}`}>
-            <Crown size={18} /> {t("sidebar.premium")}
+            <Crown size={18} /> {t.sidebar.premium}
           </Link>
           <Link href="/dashboard/mobile" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-            <Smartphone size={18} /> {t("sidebar.mobile")}
+            <Smartphone size={18} /> {t.sidebar.mobile}
           </Link>
           <Link href="/dashboard/minecraft" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-            <Pickaxe size={18} /> {t("sidebar.minecraft")}
+            <Pickaxe size={18} /> {t.sidebar.minecraft}
           </Link>
         </div>
 
         {/* Sonhos Section */}
         <div className="mb-8">
-          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t("sidebar.economy")}</h3>
+          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t.sidebar.economy}</h3>
           <div className="space-y-1">
             <Link href="/dashboard/store" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <ShoppingCart size={18} /> {t("sidebar.shop")}
+              <ShoppingCart size={18} /> {t.sidebar.shop}
             </Link>
             <Link href="/dashboard/daily" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Star size={18} /> {t("sidebar.daily")}
+              <Star size={18} /> {t.sidebar.daily}
             </Link>
           </div>
         </div>
 
         {/* Personalização Section */}
         <div className="mb-8">
-          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t("sidebar.personalization")}</h3>
+          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t.sidebar.personalization}</h3>
           <div className="space-y-1">
             <Link href="/dashboard/profile/notifications" className={`flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${pathname.includes("/notifications") ? "bg-cyan-500/10 text-cyan-400" : "text-neutral-400 hover:text-white hover:bg-white/5"}`}>
-              <div className="flex items-center gap-3"><Bell size={18} /> {t("sidebar.notifications")}</div>
+              <div className="flex items-center gap-3"><Bell size={18} /> {t.sidebar.notifications}</div>
               <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NOVO!</span>
             </Link>
             <Link href="/dashboard/profile/layout" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Layout size={18} /> {t("sidebar.profile_layout")}
+              <Layout size={18} /> {t.sidebar.profile_layout}
             </Link>
             <Link href="/dashboard/profile/background" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <ImageIcon size={18} /> {t("sidebar.profile_bg")}
+              <ImageIcon size={18} /> {t.sidebar.profile_bg}
             </Link>
             <Link href="/dashboard/profile/badges" className="flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <div className="flex items-center gap-3"><Award size={18} /> {t("sidebar.badges")}</div>
+              <div className="flex items-center gap-3"><Award size={18} /> {t.sidebar.badges}</div>
               <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NOVO!</span>
             </Link>
             <Link href="/dashboard/profile/collections" className="flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <div className="flex items-center gap-3"><Bookmark size={18} /> {t("sidebar.collections")}</div>
+              <div className="flex items-center gap-3"><Bookmark size={18} /> {t.sidebar.collections}</div>
               <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">NOVO!</span>
             </Link>
             <Link href="/dashboard/profile/presets" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Sliders size={18} /> {t("sidebar.presets")}
+              <Sliders size={18} /> {t.sidebar.presets}
             </Link>
             <Link href="/dashboard/profile/shop" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Box size={18} /> {t("sidebar.cosmetics")}
+              <Box size={18} /> {t.sidebar.cosmetics}
             </Link>
             <Link href="/dashboard/profile/pets" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Ghost size={18} /> {t("sidebar.pets")}
+              <Ghost size={18} /> {t.sidebar.pets}
             </Link>
           </div>
         </div>
 
         {/* Miscelânea Section */}
         <div className="mb-4">
-          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t("sidebar.misc")}</h3>
+          <h3 className="px-4 text-xs font-extrabold text-cyan-500 mb-3 tracking-widest uppercase">{t.sidebar.misc}</h3>
           <div className="space-y-1">
             <Link href="/dashboard/misc/ship" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Heart size={18} /> {t("sidebar.ship")}
+              <Heart size={18} /> {t.sidebar.ship}
             </Link>
             <Link href="/dashboard/misc/reputation" className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 transition-colors">
-              <Star size={18} /> {t("sidebar.reputation")}
+              <Star size={18} /> {t.sidebar.reputation}
             </Link>
           </div>
         </div>

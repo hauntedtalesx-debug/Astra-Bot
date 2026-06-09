@@ -14,7 +14,7 @@ const translations: Record<Locale, Translations> = {
 
 interface I18nContextType {
   locale: Locale;
-  t: (key: string) => string;
+  t: Translations;
   setLocale: (locale: Locale) => void;
 }
 
@@ -40,15 +40,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("astra-locale", newLocale);
   };
 
-  const t = (key: string) => {
-    const keys = key.split('.');
-    let result: any = translations[locale];
-    for (const k of keys) {
-      if (result === undefined) return key;
-      result = result[k];
-    }
-    return (result as string) || key;
-  };
+  const t = translations[locale];
 
   return (
     <I18nContext.Provider value={{ locale, t, setLocale }}>
