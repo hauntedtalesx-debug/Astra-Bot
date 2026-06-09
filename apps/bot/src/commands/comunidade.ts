@@ -92,9 +92,19 @@ export default {
 
     if (subcommand === 'saldo') {
       const targetUser = interaction.options.getUser('usuario') || interaction.user;
+      
+      // Saldo global (Dashboard)
+      const profile = await prisma.userProfile.findUnique({ where: { userId: targetUser.id } });
+      const globalCoins = profile?.astraCoins || 0;
+      
+      // Saldo local (Servidor atual)
       const activity = await prisma.memberActivity.findUnique({ where: { guildId_userId: { guildId, userId: targetUser.id } } });
-      const points = activity?.points || 0;
-      await interaction.reply({ content: `💰 ${targetUser.id === interaction.user.id ? 'Você tem' : `<@${targetUser.id}> tem`} **${points} AstraCoins**!`, ephemeral: true });
+      const localPoints = activity?.points || 0;
+      
+      await interaction.reply({ 
+        content: `💰 ${targetUser.id === interaction.user.id ? 'Você tem' : `<@${targetUser.id}> tem`} **${globalCoins} AstraCoins** (Globais) e **${localPoints} Pontos** (neste servidor)!`, 
+        ephemeral: true 
+      });
       return;
     }
 
