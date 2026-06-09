@@ -7,11 +7,25 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { AnimatedCounter } from '@/components/AnimatedCounter';
 import { DiscordMessage, DiscordEmbed } from '@/components/DiscordEmbed';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getAstraStats } from '@/actions/stats';
 
 export default function LandingPage() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'engage' | 'mod' | 'admin'>('engage');
+  const [stats, setStats] = useState({ guilds: 1250, members: 350000, commands: 5000000 });
+
+  useEffect(() => {
+    getAstraStats().then((data) => {
+      if (data && data.guilds > 0) {
+        setStats({
+          guilds: data.guilds,
+          members: data.members,
+          commands: data.messages // Using messages as a proxy for commands/engagement
+        });
+      }
+    }).catch(console.error);
+  }, []);
 
   const CLIENT_ID = "1513637418102685716";
   const OAUTH_LINK = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&permissions=8&scope=bot+applications.commands`;
@@ -51,14 +65,32 @@ export default function LandingPage() {
               </div>
             </div>
             
-            {/* Mascot Image */}
-            <div className="flex-1 flex justify-center items-center relative">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent z-10"></div>
-              <img 
-                src="/astra_mascot.png" 
-                alt="Astra Mascot" 
-                className="w-full max-w-md animate-[bounce_4s_infinite] drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
-              />
+            {/* Mascot Image / Logo */}
+            <div className="flex-1 flex justify-center items-center relative perspective-1000">
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent z-10 pointer-events-none"></div>
+              {/* 3D Container */}
+              <div className="relative group perspective-1000">
+                <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-70 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                <img 
+                  src="/logo_astra.jpg" 
+                  alt="Astra Logo" 
+                  className="relative w-full max-w-sm rounded-3xl shadow-2xl transition-all duration-500 ease-out group-hover:rotate-x-12 group-hover:-rotate-y-12 group-hover:scale-105 border border-white/10"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    animation: 'float 6s ease-in-out infinite'
+                  }}
+                />
+                <style jsx>{`
+                  @keyframes float {
+                    0% { transform: translateY(0px); }
+                    50% { transform: translateY(-20px); }
+                    100% { transform: translateY(0px); }
+                  }
+                  .perspective-1000 { perspective: 1000px; }
+                  .rotate-x-12 { transform: rotateX(12deg); }
+                  .-rotate-y-12 { transform: rotateY(-12deg); }
+                `}</style>
+              </div>
             </div>
           </div>
         </div>
@@ -70,19 +102,19 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-white mb-2">
-                <AnimatedCounter value={1250} />+
+                <AnimatedCounter value={stats.guilds} />+
               </div>
               <div className="text-neutral-400 font-medium">{t.stats.servers}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-white mb-2">
-                <AnimatedCounter value={350000} />+
+                <AnimatedCounter value={stats.members} />+
               </div>
               <div className="text-neutral-400 font-medium">{t.stats.members}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
-                <AnimatedCounter value={5000000} />+
+                <AnimatedCounter value={stats.commands} />+
               </div>
               <div className="text-neutral-400 font-medium">{t.stats.commands}</div>
             </div>
@@ -252,7 +284,7 @@ export default function LandingPage() {
             {/* Free */}
             <div className="p-8 rounded-3xl border border-white/10 bg-neutral-900/30">
               <h3 className="text-2xl font-bold mb-2">{t.pricing.free_title}</h3>
-              <div className="text-4xl font-bold mb-6">R$ {t.pricing.free_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
+              <div className="text-4xl font-bold mb-6">{t.pricing.free_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
               <ul className="space-y-4 mb-8 text-neutral-300">
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> 1 servidor</li>
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> 3 posts automáticos por semana</li>
@@ -268,7 +300,7 @@ export default function LandingPage() {
             <div className="p-8 rounded-3xl border border-purple-500/50 bg-gradient-to-b from-purple-900/20 to-transparent relative shadow-2xl shadow-purple-500/10">
               <div className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-purple-500 to-blue-500 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">{t.pricing.recommended}</div>
               <h3 className="text-2xl font-bold mb-2 text-purple-400">{t.pricing.pro_title}</h3>
-              <div className="text-4xl font-bold mb-6">R$ {t.pricing.pro_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
+              <div className="text-4xl font-bold mb-6">{t.pricing.pro_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
               <ul className="space-y-4 mb-8 text-neutral-300">
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Posts automáticos diários</li>
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Ranking semanal e mensal</li>
@@ -284,7 +316,7 @@ export default function LandingPage() {
             {/* Creator */}
             <div className="p-8 rounded-3xl border border-white/10 bg-neutral-900/30">
               <h3 className="text-2xl font-bold mb-2">{t.pricing.creator_title}</h3>
-              <div className="text-4xl font-bold mb-6">R$ {t.pricing.creator_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
+              <div className="text-4xl font-bold mb-6">{t.pricing.creator_price}<span className="text-lg text-neutral-500 font-normal">{t.pricing.month}</span></div>
               <ul className="space-y-4 mb-8 text-neutral-300">
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Múltiplos canais</li>
                 <li className="flex items-center gap-3"><ShieldCheck size={18} className="text-purple-400" /> Relatórios avançados</li>
