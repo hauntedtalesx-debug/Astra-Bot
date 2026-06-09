@@ -2,6 +2,7 @@ import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionsBitField, 
 import { prisma } from '@astra/db';
 import { isAstraAdmin, checkBotPermissions } from '../utils/permissions';
 import { Templates } from '@astra/shared';
+import { createAstraEmbed, createSuccessEmbed, createErrorEmbed, createWarningEmbed, createPremiumEmbed } from '../utils/embeds';
 
 export default {
   data: new SlashCommandBuilder()
@@ -63,7 +64,7 @@ export default {
     if (!guildId || !interaction.guild) return interaction.reply({ content: 'Apenas servidores.', ephemeral: true });
 
     if (!(await isAstraAdmin(interaction.member as any))) {
-      return interaction.reply({ content: "❌ Apenas administradores podem usar comandos /admin.", ephemeral: true });
+      return interaction.reply({ embeds: [createErrorEmbed('Acesso Negado', 'Apenas administradores podem usar comandos `/admin`.')], ephemeral: true });
     }
 
     if (!group && subcommand === 'setup') {
@@ -88,10 +89,10 @@ export default {
           create: { guildId, autoPostChannelId: postChannel?.id, rankingChannelId: rankingChannel?.id, logChannelId: logChannel?.id, language, niche, streamerName }
         });
 
-        await interaction.editReply(`✅ Setup concluído com sucesso para **${streamerName}**!\n- Canal de Posts: ${postChannel}\n- Idioma: ${language}\n- Nicho: ${niche}`);
+        await interaction.editReply({ embeds: [createSuccessEmbed('Setup Concluído', `Configurações de **${streamerName}** salvas!\n\n- **Canal de Posts**: ${postChannel}\n- **Idioma**: ${language}\n- **Nicho**: ${niche}`)] });
       } catch (error) {
         console.error(error);
-        await interaction.editReply('❌ Ocorreu um erro ao salvar as configurações.');
+        await interaction.editReply({ embeds: [createErrorEmbed('Erro no Setup', 'Ocorreu um erro ao salvar as configurações no banco de dados.')] });
       }
       return;
     }
@@ -115,7 +116,7 @@ export default {
 
         await interaction.editReply({ embeds: [embed] });
       } catch (error) {
-        await interaction.editReply('Erro ao carregar os dados do plano.');
+        await interaction.editReply({ embeds: [createErrorEmbed('Erro ao Carregar', 'Não foi possível carregar os dados do plano.')] });
       }
       return;
     }

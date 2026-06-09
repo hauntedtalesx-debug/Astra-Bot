@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { prisma } from '@astra/db';
+import { createAstraEmbed, createErrorEmbed, createSuccessEmbed, createInfoEmbed, ASTRA_COLORS } from '../utils/embeds';
 
 const DAYS_OF_WEEK = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
@@ -45,7 +46,7 @@ export default {
   async execute(interaction: ChatInputCommandInteraction) {
     const subcommand = interaction.options.getSubcommand();
     const guildId = interaction.guildId;
-    if (!guildId) return interaction.reply({ content: 'Apenas para servidores.', ephemeral: true });
+    if (!guildId) return interaction.reply({ embeds: [createErrorEmbed('Erro', 'Apenas para servidores.')], ephemeral: true });
 
     if (subcommand === 'ranking') {
       await interaction.deferReply();
@@ -61,16 +62,16 @@ export default {
         const topMembers = await prisma.memberActivity.findMany({ where: { guildId }, orderBy: { [orderByField]: 'desc' }, take: 10 });
         const activeMembers = topMembers.filter(m => m[orderByField] > 0);
 
-        if (activeMembers.length === 0) return interaction.editReply(`Ainda não há atividade registrada para o ranking ${periodo}.`);
+        if (activeMembers.length === 0) return interaction.editReply({ embeds: [createInfoEmbed('Ranking Vazio', `Ainda não há atividade registrada para o ranking ${periodo}.`)] });
 
-        const embed = new EmbedBuilder().setTitle(title).setColor('#f1c40f').setDescription(`Top ${activeMembers.length} membros mais ativos:`);
+        const embed = createAstraEmbed().setTitle(title).setDescription(`Top ${activeMembers.length} membros mais ativos:`);
         let list = '';
         activeMembers.forEach((m, i) => list += `**${i + 1}.** <@${m.userId}> - ${m[orderByField]} mensagens\n`);
         embed.addFields({ name: 'Classificação', value: list });
 
         await interaction.editReply({ embeds: [embed] });
       } catch (e) {
-        await interaction.editReply('Erro ao carregar o ranking.');
+        await interaction.editReply({ embeds: [createErrorEmbed('Erro', 'Erro ao carregar o ranking.')] });
       }
       return;
     }
@@ -81,11 +82,10 @@ export default {
         where: { id: guildId }, include: { settings: true, _count: { select: { members: true, faqs: true, autoPosts: true } } }
       });
 
-      if (!guild) return interaction.editReply('Astra ainda não está configurada neste servidor.');
+      if (!guild) return interaction.editReply({ embeds: [createErrorEmbed('Não Configurado', 'Astra ainda não está configurada neste servidor.')] });
 
-      const embed = new EmbedBuilder()
-        .setTitle(`Estatísticas - ${guild.name}`)
-        .setColor('#3498db')
+      const embed = createAstraEmbed()
+        .setTitle(`📊 Estatísticas - ${guild.name}`)
         .addFields(
           { name: 'Membros Ativos', value: guild._count.members.toString(), inline: true },
           { name: 'FAQs Cadastradas', value: guild._count.faqs.toString(), inline: true },
@@ -107,7 +107,11 @@ export default {
       const localPoints = activity?.points || 0;
       
       await interaction.reply({ 
-        content: `💰 ${targetUser.id === interaction.user.id ? 'Você tem' : `<@${targetUser.id}> tem`} **${globalCoins} AstraCoins** (Globais) e **${localPoints} Pontos** (neste servidor)!`, 
+        embeds: [
+          createAstraEmbed()
+            .setTitle('💰 Saldo na Carteira')
+            .setDescription(`${targetUser.id === interaction.user.id ? 'Você tem' : `<@${targetUser.id}> tem`} **${globalCoins} AstraCoins** (Globais) e **${localPoints} Pontos** (neste servidor)!`)
+        ],
         ephemeral: true 
       });
       return;
@@ -157,9 +161,9 @@ export default {
       await interaction.deferReply();
       const events = await prisma.creatorSchedule.findMany({ where: { guildId }, orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }] });
       
-      if (events.length === 0) return interaction.editReply("Nenhum evento na agenda no momento.");
+      if (events.length === 0) return interaction.editReply({ embeds: [createInfoEmbed('Agenda Vazia', 'Nenhum evento na agenda no momento.')] });
 
-      const embed = new EmbedBuilder().setTitle("📅 Agenda da Semana").setColor("#00FFFF").setDescription("Confira nossa programação dos próximos dias!");
+      const embed = createAstraEmbed().setTitle("📅 Agenda da Semana").setDescription("Confira nossa programação dos próximos dias!");
 
       const grouped: Record<number, typeof events> = {};
       for (const e of events) { if (!grouped[e.dayOfWeek]) grouped[e.dayOfWeek] = []; grouped[e.dayOfWeek].push(e); }
@@ -177,9 +181,9 @@ export default {
     if (subcommand === 'faq') {
       await interaction.deferReply();
       const faqs = await prisma.fAQItem.findMany({ where: { guildId } });
-      if (faqs.length === 0) return interaction.editReply('Nenhum FAQ cadastrado.');
+      if (faqs.length === 0) return interaction.editReply({ embeds: [createInfoEmbed('Sem FAQs', 'Nenhum FAQ cadastrado.')] });
 
-      const embed = new EmbedBuilder().setTitle('❓ FAQ - Perguntas Frequentes').setColor('#2ecc71');
+      const embed = createAstraEmbed().setTitle('❓ FAQ - Perguntas Frequentes');
       faqs.slice(0, 10).forEach(f => embed.addFields({ name: f.question, value: f.answer.substring(0, 1000) }));
       await interaction.editReply({ embeds: [embed] });
       return;
@@ -200,7 +204,7 @@ export default {
         },
       });
 
-      await interaction.editReply(`✅ Clipe enviado com sucesso! O streamer vai avaliar em breve.\\nID: \`${clipe.id}\``);
+      await interaction.editReply({ embeds: [createSuccessEmbed('Clipe Enviado', `Seu clipe foi enviado para o streamer avaliar!\n\n**ID do Clipe:** \`${clipe.id}\``)] });
       return;
     }
   },
