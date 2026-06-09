@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "support": "Support",
+    "commands": "Commands",
+    "premium": "Premium",
+    "wiki": "Wiki",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "add_bot": "Add to Discord"
+  },
+  "hero": {
+    "status": "Astra is already online",
+    "title": "Astra keeps your community active ",
+    "title_highlight": "even when you are offline.",
+    "subtitle": "Does your Discord die when the stream ends? Astra is your automated community manager. Daily posts, engagement rankings, weekly reports, and smart FAQ.",
+    "add_bot": "Add to Server",
+    "learn_more": "Learn More"
+  },
+  "features": {
+    "title": "Why choose Astra?",
+    "subtitle": "Everything you need for an engaged and self-sustaining community.",
+    "f1_title": "Automated Posts",
+    "f1_desc": "Astra asks questions of the day, polls, and challenges for members to interact with every day without you having to think about content.",
+    "f2_title": "Activity Ranking",
+    "f2_desc": "Identify and reward the most active members with a smart anti-spam system and automated roles.",
+    "f3_title": "Smart FAQ",
+    "f3_desc": "Your community can ask Astra questions and she responds based on what you have registered in the dashboard.",
+    "f4_title": "Automated Moderation",
+    "f4_desc": "Advanced word filter, protection against suspicious links and raids, keeping your server always safe.",
+    "f5_title": "Twitch/YouTube Integration",
+    "f5_desc": "Automatically notifies when you go live or post a new video, with personalized messages.",
+    "f6_title": "Points Shop",
+    "f6_desc": "Members earn points for interacting and can exchange them for VIP roles or custom items in the shop."
+  },
+  "showcase": {
+    "title": "Simple to use, powerful inside",
+    "subtitle": "See how Astra interacts in your server",
+    "tabs": {
+      "engage": "Engagement",
+      "mod": "Moderation",
+      "admin": "Administration"
+    }
+  },
+  "stats": {
+    "servers": "Servers",
+    "members": "Members",
+    "commands": "Commands Executed"
+  },
+  "pricing": {
+    "title": "Plans that fit your pocket",
+    "subtitle": "Start for free and evolve as your community grows.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "free_title": "Free",
+    "free_price": "0",
+    "free_btn": "Start Free",
+    "pro_title": "Pro",
+    "pro_price": "9.90",
+    "pro_btn": "Subscribe Pro",
+    "creator_title": "Creator",
+    "creator_price": "29.90",
+    "creator_btn": "Subscribe Creator",
+    "month": "/mo",
+    "recommended": "RECOMMENDED"
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "support": "Support"
+  }
+}

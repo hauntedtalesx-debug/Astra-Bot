@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Astra mantém sua comunidade ativa mesmo quando você está offline. O bot perfeito para streamers.",
 };
 
+import { I18nProvider } from "@/i18n";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="dark">
       <body className={`${inter.className} bg-neutral-950 text-neutral-50 antialiased`}>
-        {children}
+        <I18nProvider>
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "support": "Suporte",
+    "commands": "Comandos",
+    "premium": "Premium",
+    "wiki": "Wiki",
+    "login": "Entrar",
+    "dashboard": "Dashboard",
+    "logout": "Sair",
+    "add_bot": "Adicionar ao Discord"
+  },
+  "hero": {
+    "status": "Astra já está online",
+    "title": "Astra mantém sua comunidade ativa ",
+    "title_highlight": "mesmo quando você está offline.",
+    "subtitle": "Seu Discord morre quando a live acaba? A Astra é sua gerente de comunidade automatizada. Posts automáticos, ranking de engajamento, relatórios semanais e FAQ inteligente.",
+    "add_bot": "Adicionar ao Servidor",
+    "learn_more": "Saiba Mais"
+  },
+  "features": {
+    "title": "Por que escolher a Astra?",
+    "subtitle": "Tudo o que você precisa para uma comunidade engajada e auto-sustentável.",
+    "f1_title": "Posts Automáticos",
+    "f1_desc": "Astra faz perguntas do dia, enquetes e desafios para os membros interagirem todos os dias sem você precisar pensar em conteúdo.",
+    "f2_title": "Ranking de Atividade",
+    "f2_desc": "Identifique e recompense os membros mais ativos com um sistema anti-spam inteligente e cargos automáticos.",
+    "f3_title": "FAQ Inteligente",
+    "f3_desc": "Sua comunidade pode fazer perguntas para a Astra e ela responde com base no que você cadastrou no painel.",
+    "f4_title": "Moderação Automatizada",
+    "f4_desc": "Filtro avançado de palavras, proteção contra links suspeitos e raids, mantendo seu servidor sempre seguro.",
+    "f5_title": "Integração Twitch/YouTube",
+    "f5_desc": "Avisa automaticamente quando você entra ao vivo ou posta vídeo novo, com mensagens personalizadas.",
+    "f6_title": "Loja de Pontos",
+    "f6_desc": "Membros ganham pontos por interagir e podem trocar por cargos VIPs ou itens customizados na lojinha."
+  },
+  "showcase": {
+    "title": "Simples de usar, poderosa por trás",
+    "subtitle": "Veja como a Astra interage no seu servidor",
+    "tabs": {
+      "engage": "Engajamento",
+      "mod": "Moderação",
+      "admin": "Administração"
+    }
+  },
+  "stats": {
+    "servers": "Servidores",
+    "members": "Membros",
+    "commands": "Comandos Executados"
+  },
+  "pricing": {
+    "title": "Planos que cabem no seu bolso",
+    "subtitle": "Comece de graça e evolua conforme sua comunidade cresce.",
+    "monthly": "Mensal",
+    "yearly": "Anual",
+    "free_title": "Free",
+    "free_price": "0",
+    "free_btn": "Começar Grátis",
+    "pro_title": "Pro",
+    "pro_price": "9,90",
+    "pro_btn": "Assinar Pro",
+    "creator_title": "Creator",
+    "creator_price": "29,90",
+    "creator_btn": "Assinar Creator",
+    "month": "/mês",
+    "recommended": "RECOMENDADO"
+  },
+  "footer": {
+    "privacy": "Privacidade",
+    "terms": "Termos de Uso",
+    "support": "Suporte"
+  }
+}
