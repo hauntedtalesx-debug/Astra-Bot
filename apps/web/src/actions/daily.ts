@@ -10,7 +10,11 @@ export async function claimDailyReward() {
     return { success: false, error: "Você precisa estar logado." };
   }
 
-  const userId = session.user.id;
+  const userId = (session.user as any).discordId;
+
+  if (!userId) {
+    return { success: false, error: "Conta do Discord não vinculada." };
+  }
 
   // Busca o perfil do usuário (ou cria se não existir)
   let profile = await prisma.userProfile.findUnique({
@@ -84,8 +88,11 @@ export async function getDailyStatus() {
   const session = await auth();
   if (!session?.user?.id) return null;
 
+  const userId = (session.user as any).discordId;
+  if (!userId) return null;
+
   const profile = await prisma.userProfile.findUnique({
-    where: { userId: session.user.id }
+    where: { userId }
   });
 
   if (!profile) return null;

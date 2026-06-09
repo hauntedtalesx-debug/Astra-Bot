@@ -16,6 +16,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session: async ({ session, user }) => {
       if (session?.user) {
         session.user.id = user.id;
+        
+        // Fetch the Discord provider account ID (Discord Snowflake ID)
+        const account = await prisma.account.findFirst({
+          where: { userId: user.id, provider: "discord" }
+        });
+        
+        if (account) {
+          (session.user as any).discordId = account.providerAccountId;
+        }
       }
       return session;
     },
