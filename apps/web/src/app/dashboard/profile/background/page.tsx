@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { getProfileSettings, updateBackground } from "@/actions/profile";
 
 const BACKGROUNDS = [
-  { id: "https://via.placeholder.com/600x200/101524/ffffff?text=Banner+Nebulosa", name: "Nebulosa" },
-  { id: "https://via.placeholder.com/600x200/101524/ffffff?text=Banner+Supernova", name: "Supernova" },
-  { id: "https://via.placeholder.com/600x200/101524/ffffff?text=Banner+Galaxia", name: "Galáxia" },
-  { id: "https://via.placeholder.com/600x200/101524/ffffff?text=Banner+Estelar", name: "Pó Estelar" }
+  { id: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&h=200&fit=crop", name: "Nebulosa" },
+  { id: "https://images.unsplash.com/photo-1464802686167-b939a6910659?w=600&h=200&fit=crop", name: "Supernova" },
+  { id: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f41?w=600&h=200&fit=crop", name: "Galáxia" },
+  { id: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=200&fit=crop", name: "Pó Estelar" }
 ];
 
 export default function BackgroundPage() {

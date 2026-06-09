@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { getProfileSettings, updateLayout } from "@/actions/profile";
 
 const LAYOUTS = [
-  { id: "default", name: "Padrão", isPremium: false, image: "https://via.placeholder.com/400x200/101524/ffffff?text=Layout+Padrão" },
-  { id: "compact", name: "Compacto", isPremium: false, image: "https://via.placeholder.com/400x200/101524/ffffff?text=Layout+Compacto" },
-  { id: "anime", name: "Anime Style", isPremium: true, image: "https://via.placeholder.com/400x200/101524/ffffff?text=Anime+Style" },
-  { id: "cyberpunk", name: "Cyberpunk", isPremium: true, image: "https://via.placeholder.com/400x200/101524/ffffff?text=Cyberpunk" }
+  { id: "default", name: "Padrão", isPremium: false, image: "https://placehold.co/400x200/0f172a/ffffff?text=Padrão" },
+  { id: "compact", name: "Compacto", isPremium: false, image: "https://placehold.co/400x200/0f172a/ffffff?text=Compacto" },
+  { id: "anime", name: "Anime Style", isPremium: true, image: "https://placehold.co/400x200/ec4899/ffffff?text=Anime+Style" },
+  { id: "cyberpunk", name: "Cyberpunk", isPremium: true, image: "https://placehold.co/400x200/a855f7/ffffff?text=Cyberpunk" }
 ];
 
 export default function LayoutPage() {
