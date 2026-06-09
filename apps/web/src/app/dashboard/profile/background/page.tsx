@@ -62,7 +62,10 @@ export default function BackgroundPage() {
         <p className="text-neutral-400 text-lg">Personalize o banner de fundo do seu cartão de perfil do Discord.</p>
       </div>
 
-      <div className="bg-neutral-900/50 border border-white/5 rounded-3xl p-8 mb-12 text-center border-dashed border-2 hover:border-cyan-500/50 transition-colors cursor-pointer group">
+      <div 
+        onClick={() => setNotification({ message: "O Upload Personalizado em breve estará disponível para assinantes Astra Premium!", isError: true })}
+        className="bg-neutral-900/50 border border-white/5 rounded-3xl p-8 mb-12 text-center border-dashed border-2 hover:border-cyan-500/50 transition-colors cursor-pointer group"
+      >
         <Upload className="w-16 h-16 mx-auto text-neutral-500 group-hover:text-cyan-400 mb-4 transition-colors" />
         <h3 className="text-xl font-bold mb-2">Upload Personalizado</h3>
         <p className="text-neutral-400 text-sm">Faça upload da sua própria imagem ou GIF (Requer Astra Premium)</p>
