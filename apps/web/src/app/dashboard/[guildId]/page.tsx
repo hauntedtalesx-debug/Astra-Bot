@@ -75,6 +75,18 @@ export default async function GuildDashboard({ params }: { params: { guildId: st
           <h4 className="font-bold mb-2 group-hover:text-pink-400 transition-colors">Mensagem de Boas-Vindas</h4>
           <p className="text-sm text-neutral-400">Receba novos membros com estilo e sua identidade visual.</p>
         </Link>
+        <Link href={`/dashboard/${guild.id}/roles`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-purple-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-purple-400 transition-colors">Cargos por Interesse</h4>
+          <p className="text-sm text-neutral-400">Crie painéis interativos para a comunidade escolher seus interesses.</p>
+        </Link>
+        <Link href={`/dashboard/${guild.id}/giveaways`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-yellow-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-yellow-400 transition-colors">Sorteios</h4>
+          <p className="text-sm text-neutral-400">Gerencie prêmios, tempo e participantes de forma fácil.</p>
+        </Link>
+        <Link href={`/dashboard/${guild.id}/sticky`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-indigo-500/20 group">
+          <h4 className="font-bold mb-2 group-hover:text-indigo-400 transition-colors">Sticky Messages</h4>
+          <p className="text-sm text-neutral-400">Fixe mensagens importantes na parte inferior do chat.</p>
+        </Link>
         <Link href={`/dashboard/${guild.id}/posts`} className="p-6 rounded-2xl bg-neutral-900/50 hover:bg-neutral-800 transition-colors border border-white/5 group">
           <h4 className="font-bold mb-2 group-hover:text-white transition-colors">Posts Automáticos</h4>
           <p className="text-sm text-neutral-400">Configure enquetes, perguntas e desafios recorrentes.</p>

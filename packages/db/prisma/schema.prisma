@@ -97,6 +97,9 @@ model Guild {
   creatorSchedules    CreatorSchedule[]
   communityMissions   CommunityMission[]
   welcomeMessage      WelcomeMessage?
+  autoRoles           AutoRole[]
+  giveaways           Giveaway[]
+  stickyMessages      StickyMessage[]
 }
 
 model GuildSettings {
@@ -395,4 +398,50 @@ model WelcomeMessage {
   imageUrl    String?
 
   guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+}
+
+// Fase 3.3 - Auto Roles por Interesse
+model AutoRole {
+  id          String   @id @default(cuid())
+  guildId     String
+  name        String
+  description String?  @db.Text
+  roleId      String
+  
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@unique([guildId, roleId])
+}
+
+// Fase 3.3 - Sorteios Simples
+model Giveaway {
+  id           String   @id @default(cuid())
+  guildId      String
+  title        String
+  description  String?  @db.Text
+  prize        String
+  winnersCount Int      @default(1)
+  endAt        DateTime
+  active       Boolean  @default(true)
+  channelId    String
+  messageId    String?
+  createdAt    DateTime @default(now())
+  
+  guild        Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, active])
+}
+
+// Fase 3.3 - Sticky Message
+model StickyMessage {
+  id            String   @id @default(cuid())
+  guildId       String
+  channelId     String
+  messageText   String   @db.Text
+  active        Boolean  @default(true)
+  lastMessageId String?
+  
+  guild         Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@unique([guildId, channelId])
 }

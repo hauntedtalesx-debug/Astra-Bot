@@ -189,5 +189,56 @@ export function startCronJobs(client: Client) {
     }
   });
 
+  // Giveaway check (runs every minute)
+  cron.schedule('* * * * *', async () => {
+    try {
+      const now = new Date();
+      const endedGiveaways = await prisma.giveaway.findMany({
+        where: { active: true, endAt: { lte: now } }
+      });
+
+      for (const giveaway of endedGiveaways) {
+        await prisma.giveaway.update({
+          where: { id: giveaway.id },
+          data: { active: false }
+        });
+
+        const channel = client.channels.cache.get(giveaway.channelId) as TextChannel;
+        if (!channel) continue;
+
+        try {
+          const message = await channel.messages.fetch(giveaway.messageId!);
+          if (!message) continue;
+
+          const reaction = message.reactions.cache.get('🎉');
+          if (!reaction) continue;
+
+          const users = await reaction.users.fetch();
+          const validUsers = users.filter(u => !u.bot).map(u => u.id);
+
+          if (validUsers.length === 0) {
+            await channel.send(`O sorteio de **${giveaway.prize}** terminou, mas infelizmente ninguém participou! 😢`);
+            continue;
+          }
+
+          // Pick random winners
+          const winners: string[] = [];
+          for (let i = 0; i < Math.min(giveaway.winnersCount, validUsers.length); i++) {
+            const r = Math.floor(Math.random() * validUsers.length);
+            winners.push(validUsers[r]);
+            validUsers.splice(r, 1);
+          }
+
+          const winnersText = winners.map(id => `<@${id}>`).join(', ');
+          await message.reply(`🎉 Parabéns ${winnersText}! Vocês ganharam: **${giveaway.prize}**!`);
+        } catch (e) {
+          console.error(`Error finishing giveaway ${giveaway.id}`, e);
+        }
+      }
+    } catch (e) {
+      console.error('Error on giveaway cron:', e);
+    }
+  });
+
   console.log('Cron jobs started.');
 }

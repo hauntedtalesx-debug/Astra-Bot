@@ -15,6 +15,35 @@ export default {
     const userId = message.author.id;
     const channelId = message.channelId;
 
+    try {
+      // Lógica de Sticky Message
+      const sticky = await prisma.stickyMessage.findUnique({
+        where: { guildId_channelId: { guildId, channelId } },
+        include: { guild: { include: { settings: true } } }
+      });
+
+      if (sticky && sticky.active && (!sticky.guild.settings || sticky.guild.settings.stickyEnabled)) {
+        if (sticky.lastMessageId) {
+          try {
+            const oldMsg = await message.channel.messages.fetch(sticky.lastMessageId);
+            if (oldMsg) await oldMsg.delete();
+          } catch (e) {
+            // Ignorar se a mensagem antiga não existir mais
+          }
+        }
+        
+        const embed = { color: 0xFFFF00, description: `📌 **Mensagem Fixada:**\n${sticky.messageText}` };
+        const newMsg = await message.channel.send({ embeds: [embed] });
+        
+        await prisma.stickyMessage.update({
+          where: { id: sticky.id },
+          data: { lastMessageId: newMsg.id }
+        });
+      }
+    } catch (e) {
+      console.error("Erro no Sticky Message:", e);
+    }
+
     // Check rate limit (1 message per minute yields points)
     const key = `${guildId}-${userId}`;
     const lastTime = userCooldowns.get(key) || 0;
