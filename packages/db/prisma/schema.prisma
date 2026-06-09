@@ -94,6 +94,9 @@ model Guild {
   shortIdeas          ShortIdea[]
   liveAnnouncementLogs LiveAnnouncementLog[]
   youtubeAnnouncementLogs YoutubeAnnouncementLog[]
+  creatorSchedules    CreatorSchedule[]
+  communityMissions   CommunityMission[]
+  welcomeMessage      WelcomeMessage?
 }
 
 model GuildSettings {
@@ -347,4 +350,49 @@ model ShortIdea {
   guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
 
   @@index([guildId, status])
+}
+
+// Fase 3.2 - Agenda do Criador
+model CreatorSchedule {
+  id          String   @id @default(cuid())
+  guildId     String
+  dayOfWeek   Int      // 0 = Sunday, 1 = Monday, etc.
+  time        String   // HH:mm
+  title       String
+  description String?  @db.Text
+  isLive      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, dayOfWeek])
+}
+
+// Fase 3.2 - Missões da Comunidade
+model CommunityMission {
+  id          String   @id @default(cuid())
+  guildId     String
+  title       String
+  description String   @db.Text
+  reward      String?  @db.Text
+  points      Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, active])
+}
+
+// Fase 3.2 - Boas-vindas Personalizada
+model WelcomeMessage {
+  id          String   @id @default(cuid())
+  guildId     String   @unique
+  channelId   String
+  messageText String   @db.Text
+  imageUrl    String?
+
+  guild       Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
 }
