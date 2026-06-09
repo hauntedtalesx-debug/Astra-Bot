@@ -25,6 +25,11 @@ export default {
       .addUserOption(opt => opt.setName('usuario').setDescription('Ver o saldo de outro usuário').setRequired(false))
     )
 
+    // PERFIL
+    .addSubcommand(sub => sub.setName('perfil').setDescription('Exibe o seu cartão de perfil customizado.')
+      .addUserOption(opt => opt.setName('usuario').setDescription('Ver o perfil de outro usuário').setRequired(false))
+    )
+
     // AGENDA
     .addSubcommand(sub => sub.setName('agenda').setDescription('Mostra a programação de lives e vídeos da semana'))
 
@@ -105,6 +110,46 @@ export default {
         content: `💰 ${targetUser.id === interaction.user.id ? 'Você tem' : `<@${targetUser.id}> tem`} **${globalCoins} AstraCoins** (Globais) e **${localPoints} Pontos** (neste servidor)!`, 
         ephemeral: true 
       });
+      return;
+    }
+
+    if (subcommand === 'perfil') {
+      await interaction.deferReply();
+      const targetUser = interaction.options.getUser('usuario') || interaction.user;
+      
+      const profile = await prisma.userProfile.findUnique({ where: { userId: targetUser.id } });
+      const activity = await prisma.memberActivity.findUnique({ where: { guildId_userId: { guildId, userId: targetUser.id } } });
+      
+      const globalCoins = profile?.astraCoins || 0;
+      const reputation = profile?.reputation || 0;
+      const level = activity?.level || 1;
+      const xp = activity?.xp || 0;
+      
+      const bgImage = profile?.backgroundUrl || 'https://via.placeholder.com/600x200/101524/ffffff?text=Fundo+Padrao';
+      const layout = profile?.layoutId || 'default';
+      
+      let color: any = '#3498db';
+      if (layout === 'cyberpunk') color = '#ff00ff';
+      if (layout === 'anime') color = '#ff99cc';
+      if (layout === 'compact') color = '#2ecc71';
+
+      const embed = new EmbedBuilder()
+        .setTitle(`Perfil de ${targetUser.username}`)
+        .setColor(color)
+        .setThumbnail(targetUser.displayAvatarURL({ size: 256 }))
+        .setImage(bgImage)
+        .addFields(
+          { name: '🌟 Nível', value: `${level} (${xp} XP)`, inline: true },
+          { name: '💎 AstraCoins', value: `${globalCoins}`, inline: true },
+          { name: '👍 Reputação', value: `${reputation}`, inline: true }
+        );
+
+      if (layout === 'compact') {
+         embed.setDescription(`Nível: ${level} | Moedas: ${globalCoins} | Reputação: ${reputation}`);
+         embed.setFields([]); // Remove fields if compact
+      }
+
+      await interaction.editReply({ embeds: [embed] });
       return;
     }
 
